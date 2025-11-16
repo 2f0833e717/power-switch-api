@@ -19,7 +19,7 @@ SwitchBot APIを使用して、家の電源ボタンをOn/OffにするWebアプ�
 
 ### 1. SwitchBot API認証情報の取得
 
-詳細は [SETUP.md](./SETUP.md) を参照してください。
+詳細は [SETUP.md](docs/SETUP.md) を参照してください。
 
 ### 2. プロジェクトのセットアップ
 
@@ -33,11 +33,11 @@ npm install
 # SWITCHBOT_SECRET=your_secret_here
 ```
 
-詳細は [SETUP.md](./SETUP.md) を参照してください。
+詳細は [SETUP.md](docs/SETUP.md) を参照してください。
 
 ### 3. サーバーの起動
 
-起動方法の詳細は [STARTUP.md](./STARTUP.md) を参照してください。
+起動方法の詳細は [STARTUP.md](docs/STARTUP.md) を参照してください。
 
 **簡単に起動する場合:**
 - `start.bat` をダブルクリック（推奨）
@@ -90,25 +90,25 @@ npm install
 
 ## ドキュメント
 
-- [STARTUP.md](./STARTUP.md) - 起動方法の詳細
-- [SETUP.md](./SETUP.md) - SwitchBot API認証情報の設定方法
-- [BUILD.md](./BUILD.md) - .exeファイルのビルド方法
-- [GET_DEVICE_ID.md](./GET_DEVICE_ID.md) - デバイスIDの取得方法
+- [STARTUP.md](docs/STARTUP.md) - 起動方法の詳細
+- [SETUP.md](docs/SETUP.md) - SwitchBot API認証情報の設定方法
+- [BUILD.md](docs/BUILD.md) - .exeファイルのビルド方法
+- [GET_DEVICE_ID.md](docs/GET_DEVICE_ID.md) - デバイスIDの取得方法
 
 ## トラブルシューティング
 
 ### デバイスが見つからない
 - SwitchBot Hubが正しく接続されているか確認してください
 - SwitchBotアプリでデバイスが表示されるか確認してください
-- デバイスIDの取得方法は [GET_DEVICE_ID.md](./GET_DEVICE_ID.md) を参照してください
+- デバイスIDの取得方法は [GET_DEVICE_ID.md](docs/GET_DEVICE_ID.md) を参照してください
 
 ### APIエラーが発生する
 - トークンとシークレットが正しく設定されているか確認してください
 - SwitchBot Hubがインターネットに接続されているか確認してください
-- 認証情報の設定方法は [SETUP.md](./SETUP.md) を参照してください
+- 認証情報の設定方法は [SETUP.md](docs/SETUP.md) を参照してください
 
 ### .exeファイルのトラブル
-- 詳細は [BUILD.md](./BUILD.md) のトラブルシューティングセクションを参照してください
+- 詳細は [BUILD.md](docs/BUILD.md) のトラブルシューティングセクションを参照してください
 
 ## ライセンス
 

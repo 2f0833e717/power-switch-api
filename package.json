@@ -8,7 +8,29 @@
     "start": "node server.js",
     "dev": "node server.js",
     "get-devices": "node get-devices.js",
-    "build:nexe": "nexe server.js --target windows-x64-14.15.3 --output dist/switchbot-app-nexe.exe --resource public/**/*"
+    "build:nexe": "nexe server.js --target windows-x64-14.15.3 --output dist/switchbot-app-nexe.exe --resource public/**/*",
+    "book:create-summary": "node scripts/generate-summary.js",
+    "book:build:win": "powershell -Command \"cd docs; mdbook build; cd ..\"",
+    "book:build:wsl": "cd docs/ && mdbook build && cd ..",
+    "book:serve": "powershell -Command \"cd docs; mdbook serve --open\"",
+    "book:stop:wsl": "pkill -f 'serve docs/book' || true",
+    "book:clean": "rimraf docs/book",
+    "book:preview:win": "node -e \"const { exec } = require('child_process'); const { existsSync } = require('fs'); const path = 'docs/book/index.html'; if (!existsSync(path)) { console.error('Error: ' + path + ' does not exist. Please run book:build first.'); process.exit(1); } exec('start ' + path, (error) => { if (error) { console.error('Error opening file:', error); process.exit(1); } });\"",
+    "book:preview:wsl": "node -e \"const { platform } = require('os'); const { exec } = require('child_process'); const { existsSync } = require('fs'); const path = 'docs/book/index.html'; if (!existsSync(path)) { console.error('Error: ' + path + ' does not exist. Please run book:build first.'); process.exit(1); } const commands = { win32: 'start', darwin: 'open', linux: 'xdg-open' }; const cmd = commands[platform()] || 'xdg-open'; exec(cmd + ' ' + path, (error) => { if (error) { console.error('Error opening file:', error); process.exit(1); } });\"",
+    "book:all:win": "npm run book:create-summary && npm run book:build:win && npm run book:preview:win",
+    "book:all:wsl": "npm run book:create-summary && npm run book:build:wsl && npm run book:preview:wsl",
+    "viz:setup": "npm install --save-dev dependency-cruiser",
+    "viz:dependencies:dot": "depcruise --no-config --output-type dot \"*.js\" \"public/**/*.js\" \"scripts/**/*.js\" > docs/CodeViz/dependencies.dot",
+    "viz:dependencies:matrix": "depcruise --no-config --output-type html \"*.js\" \"public/**/*.js\" \"scripts/**/*.js\" > docs/CodeViz/dependencies-matrix.html && start docs/CodeViz/dependencies-matrix.html",
+    "viz:dependencies:noconfig:dot": "depcruise --no-config --output-type dot \"*.js\" \"public/**/*.js\" \"scripts/**/*.js\" --prefix vscode://file/%CD%/ | dot -Tsvg | npx depcruise-wrap-stream-in-html > docs/CodeViz/dependencies-noconfig-dot.html && start docs/CodeViz/dependencies-noconfig-dot.html",
+    "viz:dependencies:noconfig:ddot": "depcruise --no-config --output-type ddot \"*.js\" \"public/**/*.js\" \"scripts/**/*.js\" --prefix vscode://file/%CD%/ | dot -Tsvg | npx depcruise-wrap-stream-in-html > docs/CodeViz/dependencies-noconfig-ddot.html && start docs/CodeViz/dependencies-noconfig-ddot.html",
+    "viz:dependencies:stream:dot": "depcruise --config .dependency-cruiser.js --output-type dot \"*.js\" \"public/**/*.js\" \"scripts/**/*.js\" --prefix \"vscode://file/%CD%/\" | dot -Tsvg | npx depcruise-wrap-stream-in-html > docs/CodeViz/dependencies-dot-stream.html",
+    "viz:dependencies:stream:ddot": "depcruise --config .dependency-cruiser.js --output-type ddot \"*.js\" \"public/**/*.js\" \"scripts/**/*.js\" --prefix \"vscode://file/%CD%/\" | dot -Tsvg | npx depcruise-wrap-stream-in-html > docs/CodeViz/dependencies-ddot-stream.html",
+    "viz:dependencies:wrap_html:dot": "npm run viz:dependencies:stream:dot && node scripts/wrap-html.js docs/CodeViz/dependencies-dot-stream.html docs/CodeViz/dependencies-dot-wrapped.html && start docs/CodeViz/dependencies-dot-wrapped.html",
+    "viz:dependencies:wrap_html:ddot": "npm run viz:dependencies:stream:ddot && node scripts/wrap-html.js docs/CodeViz/dependencies-ddot-stream.html docs/CodeViz/dependencies-ddot-wrapped.html && start docs/CodeViz/dependencies-ddot-wrapped.html",
+    "viz:all": "npm run viz:dependencies:dot && npm run viz:dependencies:matrix && npm run viz:dependencies:noconfig:dot && npm run viz:dependencies:noconfig:ddot && npm run viz:dependencies:stream:dot && npm run viz:dependencies:stream:ddot && npm run viz:dependencies:wrap_html:dot && npm run viz:dependencies:wrap_html:ddot",
+    "docs:all:win": "npm run book:all:win && npm run viz:all",
+    "docs:all:wsl": "npm run book:all:wsl && npm run viz:all"
   },
   "keywords": [
     "switchbot",
@@ -23,6 +45,8 @@
     "express": "^4.18.2"
   },
   "devDependencies": {
-    "nexe": "^5.0.0-beta.4"
+    "nexe": "^5.0.0-beta.4",
+    "dependency-cruiser": "^16.10.1",
+    "rimraf": "^5.0.10"
   }
 }

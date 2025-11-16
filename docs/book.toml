@@ -1,7 +1,7 @@
 [book]
-title = "TypeScriptによるデザインパターン実装ガイド"
-authors = ["GoF23 TypeScript Team"]
-description = "TypeScriptで実装するGoF23デザインパターン解説ドキュメント"
+title = "SwitchBot Power Switch API ドキュメント"
+authors = ["SwitchBot Power Switch API Team"]
+description = "SwitchBot APIを使用して電源を制御するWebアプリケーションのドキュメント"
 language = "ja"
 src = "."
 build-dir = "book"
@@ -9,9 +9,6 @@ build-dir = "book"
 [output.html]
 default-theme = "light"
 preferred-dark-theme = "ayu"
-git-repository-url = "https://github.com/2f0833e717/gof23-typescript"
-edit-url-template = "https://github.com/2f0833e717/gof23-typescript/edit/main/{path}"
-additional-css = ["custom.css"]
 additional-js = ["mermaid.min.js", "mermaid-init.js"]
 
 # Windows環境とWSL環境の両方で動作するための設定

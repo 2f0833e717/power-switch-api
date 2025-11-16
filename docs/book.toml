@@ -1,0 +1,26 @@
+[book]
+title = "TypeScriptによるデザインパターン実装ガイド"
+authors = ["GoF23 TypeScript Team"]
+description = "TypeScriptで実装するGoF23デザインパターン解説ドキュメント"
+language = "ja"
+src = "."
+build-dir = "book"
+
+[output.html]
+default-theme = "light"
+preferred-dark-theme = "ayu"
+git-repository-url = "https://github.com/2f0833e717/gof23-typescript"
+edit-url-template = "https://github.com/2f0833e717/gof23-typescript/edit/main/{path}"
+additional-css = ["custom.css"]
+additional-js = ["mermaid.min.js", "mermaid-init.js"]
+
+# Windows環境とWSL環境の両方で動作するための設定
+# Windowsでもプリプロセッサを使用する設定
+
+# Windows環境用のmermaidプリプロセッサ設定
+[preprocessor.mermaid]
+command = "../scripts/mdbook/mdbook-mermaid.exe"
+
+# WSL環境用のmermaidプリプロセッサ設定の場合は以下を使用
+# [preprocessor.mermaid]
+# command = "mdbook-mermaid"

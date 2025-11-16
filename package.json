@@ -1,0 +1,28 @@
+{
+  "name": "switchbot-power-switch-api",
+  "version": "1.0.0",
+  "description": "SwitchBot APIを使用して電源をOffにするWebアプリ",
+  "main": "server.js",
+  "bin": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "get-devices": "node get-devices.js",
+    "build:nexe": "nexe server.js --target windows-x64-14.15.3 --output dist/switchbot-app-nexe.exe --resource public/**/*"
+  },
+  "keywords": [
+    "switchbot",
+    "api",
+    "smart-home"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.6.2",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nexe": "^5.0.0-beta.4"
+  }
+}

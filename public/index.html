@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SwitchBot 電源制御</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>💡 電気の電源制御</h1>
+            <p class="subtitle">電気の電源と明るさを簡単に制御できます</p>
+        </header>
+
+        <main>
+            <div class="device-section">
+                <h2>デバイス選択</h2>
+                <div class="device-selector">
+                    <select id="deviceSelect">
+                        <option value="">デバイスを読み込み中...</option>
+                    </select>
+                    <button id="refreshDevices" class="btn btn-secondary">更新</button>
+                </div>
+            </div>
+
+            <div class="control-section">
+                <h2>電源制御</h2>
+                <div class="button-group">
+                    <button id="turnOnBtn" class="btn btn-success">
+                        <span class="icon">💡</span>
+                        <span>電気ON</span>
+                    </button>
+                    <button id="turnOffBtn" class="btn btn-danger">
+                        <span class="icon">🔌</span>
+                        <span>電気OFF</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="brightness-section">
+                <h2>明るさ調整</h2>
+                <div class="brightness-control">
+                    <div class="brightness-display">
+                        <span class="brightness-icon">☀️</span>
+                        <span id="brightnessValue" class="brightness-value">10</span>
+                        <span class="brightness-unit">%</span>
+                    </div>
+                    <input type="range" id="brightnessSlider" class="brightness-slider" 
+                           min="1" max="100" value="10" step="1">
+                    <div class="brightness-labels">
+                        <span>暗い</span>
+                        <span>明るい</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="status-section">
+                <div id="statusMessage" class="status-message"></div>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

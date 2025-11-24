@@ -54,3 +54,5 @@ async function getDevices() {
 
 getDevices();
 
+
+

@@ -1,43 +1,43 @@
 @echo off
-chcp 65001 >nul
-title SwitchBot 電源制御アプリ
+chcp 65001 >nul 2>&1
+title SwitchBot Power Control App
 echo.
 echo ========================================
-echo   SwitchBot 電源制御アプリを起動中...
+echo   SwitchBot Power Control App Starting...
 echo ========================================
 echo.
 
 cd /d "%~dp0"
 
 if not exist "node_modules" (
-    echo 依存関係をインストールしています...
+    echo Installing dependencies...
     call npm install
     echo.
 )
 
 if not exist ".env" (
-    echo [警告] .envファイルが見つかりません。
-    echo SETUP.mdを参照して認証情報を設定してください。
+    echo [Warning] .env file not found.
+    echo Please set up authentication information. See docs\SETUP.md
     echo.
     pause
     exit /b 1
 )
 
-echo 既存のサーバープロセスを確認しています...
+echo Checking for existing server processes...
 taskkill /F /IM node.exe >nul 2>&1
 timeout /t 2 /nobreak >nul
 
 echo.
-echo サーバーを起動しています...
-echo ブラウザで http://localhost:3000 にアクセスしてください。
+echo Starting server...
+echo Browser will open automatically at http://localhost:3000
 echo.
-echo 停止するには、このウィンドウを閉じるか Ctrl+C を押してください。
+echo Press Ctrl+C to stop the server.
 echo.
 
 node server.js
 
 if errorlevel 1 (
     echo.
-    echo エラーが発生しました。
+    echo An error occurred.
     pause
 )

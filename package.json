@@ -8,7 +8,7 @@
     "start": "node server.js",
     "dev": "node server.js",
     "get-devices": "node get-devices.js",
-    "build:nexe": "nexe server.js --target windows-x64-14.15.3 --output dist/switchbot-app-nexe.exe --resource public/**/*",
+    "build:nexe": "nexe server.js --target windows-x64-14.15.3 --output dist/switchbot-app-nexe.exe --resource public/**/* && if exist minimize_browser_window.ps1 copy minimize_browser_window.ps1 dist\\minimize_browser_window.ps1",
     "book:create-summary": "node scripts/generate-summary.js",
     "book:build:win": "powershell -Command \"cd docs; mdbook build; cd ..\"",
     "book:build:wsl": "cd docs/ && mdbook build && cd ..",

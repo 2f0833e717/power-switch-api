@@ -44,7 +44,9 @@ npm run build:nexe
    SWITCHBOT_SECRET=your_secret_here
    DEVICE_ID=your_device_id_here
    PORT=3000
+   TIMEOUT_MS=10000
    ```
+3. （Windowsのみ、オプション）`minimize_browser_window.ps1`を`dist`フォルダにコピー（ブラウザ最小化機能を使用する場合）
 
 詳細は [SETUP.md](./SETUP.md) を参照してください。
 
@@ -60,9 +62,12 @@ npm run build:nexe
 1. `dist`フォルダ全体をコピー
 2. 使用するPCに配置
 3. `.env`ファイルを設定（上記参照）
-4. `switchbot-app-nexe.exe`を実行
+4. （Windowsのみ、オプション）`minimize_browser_window.ps1`を`dist`フォルダにコピー
+5. `switchbot-app-nexe.exe`を実行
 
 **注意**: Node.jsをインストールする必要はありません。.exeファイルにNode.jsが含まれています。
+
+**注意**: ブラウザ最小化機能を使用する場合、`minimize_browser_window.ps1`を`dist`フォルダに配置してください。
 
 ## トラブルシューティング
 
@@ -131,6 +136,7 @@ npm run build:nexe
 2. ✅ `.env`ファイルに正しい認証情報が設定されているか
 3. ✅ ポート3000が使用されていないか
 4. ✅ 静的ファイル（`public`フォルダ）は`.exe`に埋め込まれているか
+5. ✅ （Windowsのみ、オプション）`minimize_browser_window.ps1`が`dist`フォルダにあるか（ブラウザ最小化機能を使用する場合）
 
 ## その他の起動方法
 

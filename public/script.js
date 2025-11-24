@@ -275,31 +275,7 @@ refreshDevicesBtn.addEventListener('click', loadDevices);
 turnOnBtn.addEventListener('click', turnOn);
 turnOffBtn.addEventListener('click', turnOff);
 
-// タブを閉じるフラグ
-let shouldCloseTab = false;
-
-// タブを閉じる前にブラウザを最小化する処理
-function setupBeforeUnloadHandler() {
-    window.addEventListener('beforeunload', (event) => {
-        // タブを閉じる前にブラウザを最小化するリクエストを送信
-        if (shouldCloseTab) {
-            console.log('タブを閉じる前にブラウザを最小化します...');
-            
-            // 非同期で送信（完了を待たない）
-            fetch('/api/minimize-browser', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                keepalive: true // ページが閉じられてもリクエストを送信
-            }).catch(() => {
-                // エラーは無視
-            });
-        }
-    });
-}
-
-// サーバーの状態を監視して、終了時にタブを閉じる
+// サーバーの状態を監視して、終了時にメッセージを表示
 function startServerStatusMonitoring() {
     // 1秒ごとにサーバーの状態をチェック
     serverStatusCheckInterval = setInterval(async () => {
@@ -308,63 +284,38 @@ function startServerStatusMonitoring() {
             const data = await response.json();
             
             if (data.status === 'shutting_down') {
-                // サーバーが終了中の場合、タブを閉じるフラグを設定
-                console.log('サーバーが終了しています。タブを閉じます...');
+                // サーバーが終了中の場合、メッセージを表示
+                console.log('サーバーが終了しています。');
                 clearInterval(serverStatusCheckInterval);
                 
-                // タブを閉じるフラグを設定
-                shouldCloseTab = true;
-                
-                // タブを閉じる（beforeunloadイベントでブラウザを最小化）
-                setTimeout(() => {
-                    // ブラウザタブを閉じる（自動で開いたタブの場合のみ可能）
-                    window.close();
-                    
-                    // タブを閉じられない場合（通常のタブの場合）は、ページをリロードしてエラー表示
-                    setTimeout(() => {
-                        // タブを閉じられなかった場合、ページにメッセージを表示
-                        document.body.innerHTML = `
-                            <div style="display: flex; justify-content: center; align-items: center; height: 100vh; flex-direction: column; font-family: Arial, sans-serif;">
-                                <h1>⏰ タイムアウト</h1>
-                                <p>サーバーが自動的に終了しました。</p>
-                                <p>このタブを閉じてください。</p>
-                            </div>
-                        `;
-                    }, 100);
-                }, 100);
+                // ページにメッセージを表示
+                document.body.innerHTML = `
+                    <div style="display: flex; justify-content: center; align-items: center; height: 100vh; flex-direction: column; font-family: Arial, sans-serif;">
+                        <h1>⏰ タイムアウト</h1>
+                        <p>サーバーが自動的に終了しました。</p>
+                        <p>このタブを閉じてください。</p>
+                    </div>
+                `;
             }
         } catch (error) {
             // サーバーに接続できない場合（サーバーが終了した場合）
             console.log('サーバーに接続できません。サーバーが終了した可能性があります。');
             clearInterval(serverStatusCheckInterval);
             
-            // タブを閉じるフラグを設定
-            shouldCloseTab = true;
-            
-            // タブを閉じる（beforeunloadイベントでブラウザを最小化）
-            setTimeout(() => {
-                window.close();
-                
-                // タブを閉じられない場合
-                setTimeout(() => {
-                    document.body.innerHTML = `
-                        <div style="display: flex; justify-content: center; align-items: center; height: 100vh; flex-direction: column; font-family: Arial, sans-serif;">
-                            <h1>⏰ タイムアウト</h1>
-                            <p>サーバーが自動的に終了しました。</p>
-                            <p>このタブを閉じてください。</p>
-                        </div>
-                    `;
-                }, 100);
-            }, 100);
+            // ページにメッセージを表示
+            document.body.innerHTML = `
+                <div style="display: flex; justify-content: center; align-items: center; height: 100vh; flex-direction: column; font-family: Arial, sans-serif;">
+                    <h1>⏰ タイムアウト</h1>
+                    <p>サーバーが自動的に終了しました。</p>
+                    <p>このタブを閉じてください。</p>
+                </div>
+            `;
         }
     }, 1000); // 1秒ごとにチェック
 }
 
 // ページ読み込み時にデバイスリストを取得
 loadDevices();
-
-// タブを閉じる前にブラウザを最小化するハンドラーを設定
-setupBeforeUnloadHandler();
 
 // サーバー状態の監視を開始
 startServerStatusMonitoring();
